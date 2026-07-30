@@ -48,5 +48,45 @@ const registerUser = async (req, res) => {
     res.status(500).json({ message: "Server error", error: error.message });
   }
 };
+// @desc    Login user
+// @route   POST /api/auth/login
+// @access  Public
+const loginUser = async (req, res) => {
+  try {
+    const { email, password } = req.body;
 
-module.exports = { registerUser };
+    // 1. Basic validation
+    if (!email || !password) {
+      return res.status(400).json({ message: "Please provide email and password" });
+    }
+
+    // 2. Find user by email
+    const user = await User.findOne({ email });
+
+    // 3. Generic error if user doesn't exist
+    if (!user) {
+      return res.status(401).json({ message: "Invalid email or password" });
+    }
+
+    // 4. Compare submitted password with stored hash
+    const isMatch = await bcrypt.compare(password, user.password);
+
+    if (!isMatch) {
+      return res.status(401).json({ message: "Invalid email or password" });
+    }
+
+    // 5. Success - send user data + fresh token
+    res.status(200).json({
+      _id: user._id,
+      name: user.name,
+      email: user.email,
+      role: user.role,
+      token: generateToken(user._id),
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Server error", error: error.message });
+  }
+};
+
+module.exports = { registerUser, loginUser };
