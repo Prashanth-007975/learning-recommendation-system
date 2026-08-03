@@ -5,7 +5,32 @@ const Course = require("../models/Course");
 // @access  Public
 const getCourses = async (req, res) => {
   try {
-    const courses = await Course.find({});
+    const { search, category, difficulty, skill } = req.query;
+
+    // Build a dynamic MongoDB query object based on which filters were provided
+    const query = {};
+
+    // Search by title (case-insensitive partial match)
+    if (search) {
+      query.title = { $regex: search, $options: "i" };
+    }
+
+    // Filter by exact category match (case-insensitive)
+    if (category) {
+      query.category = { $regex: `^${category}$`, $options: "i" };
+    }
+
+    // Filter by exact difficulty match
+    if (difficulty) {
+      query.difficulty = { $regex: `^${difficulty}$`, $options: "i" };
+    }
+
+    // Filter by a skill being present in skillsCovered array
+    if (skill) {
+      query.skillsCovered = { $regex: skill, $options: "i" };
+    }
+
+    const courses = await Course.find(query);
     res.status(200).json(courses);
   } catch (error) {
     console.error(error);
