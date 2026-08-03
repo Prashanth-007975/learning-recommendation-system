@@ -1,16 +1,18 @@
+import { Routes, Route, Navigate } from "react-router-dom";
 import { AuthProvider } from "./context/AuthContext";
+import LoginPage from "./pages/LoginPage";
+import RegisterPage from "./pages/RegisterPage";
+import DashboardPage from "./pages/DashboardPage";
 
 function App() {
   return (
     <AuthProvider>
-      <div className="min-h-screen bg-gray-50">
-        <h1 className="text-2xl font-bold text-center p-8">
-          Learning Recommendation System
-        </h1>
-        <p className="text-center text-gray-600">
-          Frontend foundation is set up. Pages coming next!
-        </p>
-      </div>
+      <Routes>
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/register" element={<RegisterPage />} />
+        <Route path="/dashboard" element={<DashboardPage />} />
+        <Route path="/" element={<Navigate to="/login" />} />
+      </Routes>
     </AuthProvider>
   );
 }
