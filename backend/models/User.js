@@ -27,6 +27,10 @@ const userSchema = new mongoose.Schema(
       enum: ["user", "admin"],
       default: "user",
     },
+    skills: { type: [String], default: [] },
+    interests: { type: [String], default: [] },
+    learningGoal: { type: String, default: "" },
+    completedCourses: { type: [String], default: [] },
   },
   {
     timestamps: true,
