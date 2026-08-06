@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
 
 const DashboardPage = () => {
@@ -9,12 +10,20 @@ const DashboardPage = () => {
         <h1 className="text-2xl font-bold mb-2">Welcome, {user?.name}!</h1>
         <p className="text-gray-600 mb-4">Email: {user?.email}</p>
         <p className="text-gray-600 mb-4">Role: {user?.role}</p>
-        <button
-          onClick={logout}
-          className="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700"
-        >
-          Logout
-        </button>
+        <div className="flex gap-3">
+          <Link
+            to="/profile"
+            className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+          >
+            Edit Profile
+          </Link>
+          <button
+            onClick={logout}
+            className="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700"
+          >
+            Logout
+          </button>
+        </div>
       </div>
     </div>
   );
