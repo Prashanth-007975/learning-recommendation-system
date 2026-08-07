@@ -66,6 +66,12 @@ const DashboardPage = () => {
           </div>
           <div className="flex gap-3">
             <Link
+              to="/courses"
+              className="bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-700 text-sm"
+            >
+              Browse Courses
+            </Link>
+            <Link
               to="/profile"
               className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 text-sm"
             >
