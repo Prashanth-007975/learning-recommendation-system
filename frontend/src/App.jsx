@@ -1,15 +1,20 @@
-import { Routes, Route, Navigate } from "react-router-dom";
+import { Routes, Route, Navigate, useLocation } from "react-router-dom";
 import { AuthProvider } from "./context/AuthContext";
 import PrivateRoute from "./components/PrivateRoute";
+import Navbar from "./components/Navbar";
+import useAuth from "./hooks/useAuth";
 import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
 import DashboardPage from "./pages/DashboardPage";
 import ProfilePage from "./pages/ProfilePage";
 import CoursesPage from "./pages/CoursesPage";
 
-function App() {
+const AppLayout = () => {
+  const { user } = useAuth();
+
   return (
-    <AuthProvider>
+    <>
+      {user && <Navbar />}
       <Routes>
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
@@ -39,6 +44,14 @@ function App() {
         />
         <Route path="/" element={<Navigate to="/dashboard" />} />
       </Routes>
+    </>
+  );
+};
+
+function App() {
+  return (
+    <AuthProvider>
+      <AppLayout />
     </AuthProvider>
   );
 }

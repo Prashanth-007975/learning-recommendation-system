@@ -1,12 +1,11 @@
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
 import userService from "../services/userService";
 import recommendationService from "../services/recommendationService";
 import CourseCard from "../components/CourseCard";
 
 const DashboardPage = () => {
-  const { user, logout } = useAuth();
+  const { user } = useAuth();
   const [profile, setProfile] = useState(null);
   const [recommendations, setRecommendations] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -35,17 +34,7 @@ const DashboardPage = () => {
     fetchDashboardData();
   }, []);
 
-  // Calculate simple progress stats from profile data
   const completedCount = profile?.completedCourses?.length || 0;
-  const categoriesCovered = new Set(
-    recommendations
-      .filter((rec) =>
-        profile?.completedCourses?.some(
-          (c) => c.toLowerCase() === rec.title.toLowerCase()
-        )
-      )
-      .map((rec) => rec.category)
-  ).size;
 
   if (loading) {
     return (
@@ -58,35 +47,11 @@ const DashboardPage = () => {
   return (
     <div className="min-h-screen bg-gray-50 p-8">
       <div className="max-w-5xl mx-auto">
-        {/* Header */}
-        <div className="flex justify-between items-center mb-6">
-          <div>
-            <h1 className="text-2xl font-bold">Welcome back, {user?.name}!</h1>
-            <p className="text-gray-600 text-sm">{user?.email}</p>
-          </div>
-          <div className="flex gap-3">
-            <Link
-              to="/courses"
-              className="bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-700 text-sm"
-            >
-              Browse Courses
-            </Link>
-            <Link
-              to="/profile"
-              className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 text-sm"
-            >
-              Edit Profile
-            </Link>
-            <button
-              onClick={logout}
-              className="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700 text-sm"
-            >
-              Logout
-            </button>
-          </div>
+        <div className="mb-6">
+          <h1 className="text-2xl font-bold">Welcome back, {user?.name}!</h1>
+          <p className="text-gray-600 text-sm">{user?.email}</p>
         </div>
 
-        {/* Profile Summary + Progress Stats */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
           <div className="bg-white p-4 rounded-lg shadow-sm">
             <p className="text-3xl font-bold text-blue-600">{completedCount}</p>
@@ -106,7 +71,6 @@ const DashboardPage = () => {
           </div>
         </div>
 
-        {/* Learning Goal */}
         {profile?.learningGoal && (
           <div className="bg-white p-4 rounded-lg shadow-sm mb-8">
             <h2 className="text-sm font-semibold text-gray-500 mb-1">
@@ -116,7 +80,6 @@ const DashboardPage = () => {
           </div>
         )}
 
-        {/* Recommended Courses */}
         <div className="mb-8">
           <h2 className="text-xl font-bold mb-4">Recommended For You</h2>
 
@@ -138,7 +101,6 @@ const DashboardPage = () => {
           </div>
         </div>
 
-        {/* Recently Completed Courses */}
         {completedCount > 0 && (
           <div>
             <h2 className="text-xl font-bold mb-4">Recently Completed</h2>

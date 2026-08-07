@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
 import courseService from "../services/courseService";
 import CourseCard from "../components/CourseCard";
 
@@ -60,12 +59,7 @@ const CoursesPage = () => {
   return (
     <div className="min-h-screen bg-gray-50 p-8">
       <div className="max-w-5xl mx-auto">
-        <div className="flex justify-between items-center mb-6">
-          <h1 className="text-2xl font-bold">Browse Courses</h1>
-          <Link to="/dashboard" className="text-blue-600 hover:underline text-sm">
-            ← Back to Dashboard
-          </Link>
-        </div>
+        <h1 className="text-2xl font-bold mb-6">Browse Courses</h1>
 
         {/* Search & Filters */}
         <div className="bg-white p-4 rounded-lg shadow-sm mb-6 flex flex-wrap gap-4 items-end">

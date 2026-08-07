@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
 import userService from "../services/userService";
 import TagInput from "../components/TagInput";
 
@@ -69,12 +68,7 @@ const ProfilePage = () => {
   return (
     <div className="min-h-screen bg-gray-50 p-8">
       <div className="max-w-2xl mx-auto bg-white p-6 rounded-lg shadow-md">
-        <div className="flex justify-between items-center mb-6">
-          <h1 className="text-2xl font-bold">My Profile</h1>
-          <Link to="/dashboard" className="text-blue-600 hover:underline text-sm">
-            ← Back to Dashboard
-          </Link>
-        </div>
+      <h1 className="text-2xl font-bold mb-6">My Profile</h1>
 
         {error && (
           <div className="bg-red-100 text-red-700 p-3 rounded mb-4 text-sm">
