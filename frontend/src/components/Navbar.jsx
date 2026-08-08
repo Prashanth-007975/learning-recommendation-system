@@ -11,6 +11,10 @@ const Navbar = () => {
     { to: "/profile", label: "Profile" },
   ];
 
+  if (user?.role === "admin") {
+    navLinks.push({ to: "/admin/courses", label: "Manage Courses" });
+  }
+
   const isActive = (path) => location.pathname === path;
 
   return (

@@ -10,4 +10,25 @@ const getCourseById = async (id) => {
   return response.data;
 };
 
-export default { getCourses, getCourseById };
+const createCourse = async (courseData) => {
+  const response = await api.post("/courses", courseData);
+  return response.data;
+};
+
+const updateCourse = async (id, courseData) => {
+  const response = await api.put(`/courses/${id}`, courseData);
+  return response.data;
+};
+
+const deleteCourse = async (id) => {
+  const response = await api.delete(`/courses/${id}`);
+  return response.data;
+};
+
+export default {
+  getCourses,
+  getCourseById,
+  createCourse,
+  updateCourse,
+  deleteCourse,
+};

@@ -8,6 +8,7 @@ import RegisterPage from "./pages/RegisterPage";
 import DashboardPage from "./pages/DashboardPage";
 import ProfilePage from "./pages/ProfilePage";
 import CoursesPage from "./pages/CoursesPage";
+import AdminCoursesPage from "./pages/AdminCoursesPage";
 
 const AppLayout = () => {
   const { user } = useAuth();
@@ -39,6 +40,14 @@ const AppLayout = () => {
           element={
             <PrivateRoute>
               <CoursesPage />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/admin/courses"
+          element={
+            <PrivateRoute>
+              <AdminCoursesPage />
             </PrivateRoute>
           }
         />
